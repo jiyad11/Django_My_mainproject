@@ -1,0 +1,17 @@
+{% extends 'customer_dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <label class="form-label">worker</label>
+  <input required class="form-control" readonly value="{{Schedule.Customuser}}">
+  <label class="form-label">date</label>
+  <input required class="form-control" readonly value="{{Schedule.date_available}}">
+  <label class="form-label">start time</label>
+  <input required class="form-control" readonly value="{{Schedule.start_time}}">
+  <label class="form-label">enf time</label>
+  <input required class="form-control" readonly value="{{Schedule.end_time}}">
+  <button type="submit">Create Appointment</button>
+</form>
+
+{% endblock %}

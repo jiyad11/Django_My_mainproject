@@ -1,0 +1,33 @@
+{% extends 'worker_dashboard.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>Date Available</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Update schedule</th>
+                    <th>Delete schedule</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+
+                    <td>{{i.Customuser.username}}</td>
+                    <td>{{ i.date_available }}</td>
+                    <td>{{ i.start_time }}</td>
+                    <td>{{ i.end_time }}</td>
+                    <td><button class="btn btn-secondary"><a style="color:white" href="{% url 'update_schedulework' i.id %}">update</a></button></td>
+                    <td><button class="btn btn-danger"><a style="color:white" href="{% url 'delete_schedulework' i.id %}">delete</a></button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

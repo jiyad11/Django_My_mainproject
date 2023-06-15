@@ -1,0 +1,23 @@
+{% extends 'customer_dashboard.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="table table-bordered">
+            {% for i in comp %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.Customuser.username}}</td>
+                <td>{{i.type_complaint}}</td>
+                {% if i.reply_complaint %}
+                <td> <h6>Reply From The Admin : </h6><br>{{i.reply_complaint}}</td>
+
+                {% endif %}
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'customer_dashboard.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="table bordered">
+            <thead>
+            <tr>
+                <th>Sl No.</th>
+                <th>worker name</th>
+                <th>date</th>
+                <th>start time</th>
+                <th>end time</th>
+                <th>appointment</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for a in appointment %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{a.Schedule.Customuser}}</td>
+                <td>{{a.Schedule.date_available}}</td>
+                <td>{{a.Schedule.start_time}}</td>
+                <td>{{a.Schedule.end_time}}</td>
+                <td>
+                    {% if a.status == 0 %}
+                    <button>approval pending</button>
+                    {% elif a.status == 1 %}
+                    <button>confirmed appointment</button>
+                    {% else %}
+                    <button>rejected</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

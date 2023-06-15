@@ -1,0 +1,25 @@
+{% extends 'admin_dashboard.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="table table-bordered">
+            {% for comp in comps %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{comp.Customuser.username}}</td>
+                <td>{{comp.type_complaint}}</td>
+
+                <td>
+                    {% if comp.reply_complaint %}
+                    <p><b>already replied :</b> <br>{{comp.reply_complaint}}</p>
+                    {% else %}
+                    <a href="{% url 'reply_complaint' comp.id %}" class="btn btn-primary">reply now</a>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

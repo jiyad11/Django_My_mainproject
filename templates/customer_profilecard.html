@@ -1,0 +1,34 @@
+{% extends 'customer_dashboard.html' %}
+{% block content %}
+<div class="card-deck">
+  {% for i in data %}
+    <div class="card mb-3" style="width: 18rem;">
+      {% if i.photo %}
+      <img class="card-img-top; mt:2" src="{{ i.photo.url }}">
+      {% endif %}
+      <div class="card-body">
+        <h3>Username :{{ i.username }}</h3>
+        <h4>Fullname :{{ i.first_name }} {{ i.last_name }}</h4>
+        <h5>Email :{{ i.email }}</h5>
+        <p>Address :{{ i.address }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<!--<div class="card text-center" style="width:300px">-->
+<!--  {% for i in data %}-->
+<!--&lt;!&ndash;  {% if i.photo %}&ndash;&gt;-->
+<!--  <img class="card-img-top; mt:1"  src="{{i.photo.url}}" height="200px" alt="Card image">-->
+<!--&lt;!&ndash;  {% endif %}&ndash;&gt;-->
+<!--  <div class="card-body">-->
+
+<!--    <h3><b>Username  : {{i.username}}</b></h3>-->
+<!--    <h5><b>Firstname : {{i.first_name}}</b></h5>-->
+<!--    <h5><b>Lastname  : {{i.last_name}}</b></h5>-->
+<!--   <h6>Email      : {{i.email}}</h6>-->
+<!--    <p>Address   : {{i.address}}</h5></p>-->
+
+<!--  </div>-->
+<!--  {% endfor %}-->
+<!--</div>-->
+{% endblock %}

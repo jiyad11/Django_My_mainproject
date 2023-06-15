@@ -1,0 +1,41 @@
+{% extends 'admin_dashboard.html' %}
+{% block content %}
+<div class="card">
+<div class="card-body">
+<table class="table table-bordered">
+  <tr>
+    <th>Sl No.</th>
+    <th>Username</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Work</th>
+    <th>Experience</th>
+    <th>gender</th>
+    <th>Email</th>
+    <th>Photo</th>
+    <th>Update</th>
+    <th>Delete</th>
+  </tr>
+  {% for i in data %}
+  <tr>
+    <td>{{forloop.counter}}</td>
+     <td>{{i.username}}</td>
+    <td>{{i.first_name}}</td>
+    <td>{{i.last_name}}</td>
+     <td>{{i.type_of_work}}</td>
+    <td>{{i.experience}}</td>
+    <td>{{i.gender}}</td>
+    <td>{{i.email}}</td>
+    <td>{% if i.photo %}
+      <img src="{{i.photo.url}}" height="50px">
+    {% endif %}</td>
+    <td><button class="btn btn-secondary"><a href="{% url 'update_worker' i.id %}" style="color:white">update</a></button></td>
+    <td><button class="btn btn-danger"><a href="{% url 'delete_worker' i.id %}" style="color:white">delete</a></button></td>
+
+  </tr>
+  {% endfor %}
+</table>
+
+  </div>
+  </div>
+{% endblock %}

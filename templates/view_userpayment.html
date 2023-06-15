@@ -1,0 +1,30 @@
+{% extends 'customer_dashboard.html' %}
+{% block content %}
+
+  <div class="card">
+    <div class="card-body">
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>customer name</th>
+    <th>bill date</th>
+    <th>amount</th>
+    <th>pay now</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for i in data %}
+  <tr>
+    <td>{{i.Customuser}}</td>
+    <td>{{i.bill_date}}</td>
+    <td>{{i.amount}}</td>
+
+    <td><button class="btn btn-primary" type="submit"><a style="color:white" href="{% url 'bill_payment' i.id %}">pay now</a></button></td>
+
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+      </div>
+  </div>
+{% endblock %}

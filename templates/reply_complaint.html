@@ -1,0 +1,10 @@
+{% extends 'admin_dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h3>Reply From Admin :</h3>
+    {{form|crispy}}
+    <button type="submit">submit complaint</button>
+</form>
+{% endblock %}

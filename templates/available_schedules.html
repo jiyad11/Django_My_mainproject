@@ -1,0 +1,31 @@
+{% extends 'customer_dashboard.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Sl No.</th>
+    <th>name</th>
+    <th>Available Date</th>
+    <th>Starting Time</th>
+    <th>Ending Time</th>
+    <th>Schedule an appointment</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for appointment in data %}
+  <tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{appointment.Customuser.username}}</td>
+    <td>{{appointment.Schedule.date_available}}</td>
+    <td>{{appointment.Schedule.start_time}}</td>
+    <td>{{appointment.Schedule.end_time}}</td>
+    <td><button class="btn btn-primary" type="submit">Book appointment</button></td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+    </div>
+    </div>
+{% endblock %}

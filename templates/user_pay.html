@@ -1,0 +1,10 @@
+{% extends 'customer_dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+        <button type="submit">pay now</button>
+        <button type="submit">pay Direct</button>
+</form>
+{% endblock %}
