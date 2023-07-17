@@ -1,0 +1,30 @@
+{% extends 'customer_dashboard.html' %}
+{% block content %}
+
+<div class="card">
+  <div class="card-body">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>worker name</th>
+      <th>work</th>
+      <th>Date Available</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in data %}
+          <tr>
+            <td>{{ i.first_name }} {{i.last_name}}</td>
+            <td>{{schedule.type_of_work}}</td>
+            <td>{{ schedule.date_available }}</td>
+            <td>{{ schedule.start_time }}</td>
+            <td>{{ schedule.end_time }}</td>
+          </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+    </div>
+  </div>
+{% endblock %}

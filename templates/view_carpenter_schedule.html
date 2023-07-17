@@ -17,7 +17,7 @@
             <tbody>
                 {% for i in data %}
                 <tr>
-                    <td>{{ i.Customuser.username}}</td>
+                    <td>{{ i.Customuser.first_name}} {{i.Customuser.last_name}}</td>
                     <td>{{i.type_of_work.works}}</td>
                     <td>{{ i.date_available }}</td>
                     <td>{{ i.start_time }}</td>

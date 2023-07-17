@@ -1,7 +1,7 @@
 {% extends 'customer_dashboard.html' %}
 {% block content %}
-<div class="card">
-    <div class="card-body">
+<!--<div class="card">-->
+<!--    <div class="card-body">-->
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -17,7 +17,7 @@
             <tbody>
                 {% for i in data %}
                 <tr>
-                    <td>{{ i.Customuser.username}}</td>
+                    <td>{{ i.Customuser.first_name}} {{ i.Customuser.last_name}}</td>
                     <td>{{i.type_of_work.works}}</td>
                     <td>{{ i.date_available }}</td>
                     <td>{{ i.start_time }}</td>
@@ -28,6 +28,6 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 {% endblock %}

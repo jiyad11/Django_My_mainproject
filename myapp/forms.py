@@ -43,10 +43,10 @@ class customer_form(UserCreationForm):
 
     class Meta:
         model = customuser
-        fields = ('username','first_name','last_name','password1','password2','date_of_birth','gender','email','address','photo')
-
+        fields = ('username','first_name','last_name','password1','password2','date_of_birth','gender','email','address','photo','is_active')
         widgets = {
-            'date_of_birth' : forms.widgets.DateInput(attrs={'type' : 'date'})
+            'date_of_birth' : forms.widgets.DateInput(attrs={'type' : 'date'}),
+            'is_active' : forms.HiddenInput(),
         }
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -61,7 +61,7 @@ class schedule_form(forms.ModelForm):
     # Customuser = forms.ModelChoiceField(queryset=customuser.objects.filter(is_worker=True))
     class Meta:
         model = schedule
-        fields = ('Customuser','date_available','start_time','end_time')
+        fields = ('Customuser','type_of_work','date_available','start_time','end_time')
         widgets = {
             'date_available' : forms.widgets.DateInput(attrs={'type' : 'date'}),
             'start_time' : forms.widgets.TimeInput(attrs={'type':'time'}),

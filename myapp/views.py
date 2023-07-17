@@ -18,6 +18,13 @@ def admin_dashboard(request):
     return render(request,'admin_dashboard.html')
 
 #we redirecting using views function name, not htmlname
+
+def is_admin(user):
+    return user.is_authenticated and user.is_superuser  ## The is_authenticated attribute checks if a user is authenticated,
+                      ## meaning they have logged in and their session is active.
+
+@login_required
+@user_passes_test(is_admin)
 def add_works(request):
     form = work_form()
     if request.method == 'POST':
@@ -27,10 +34,18 @@ def add_works(request):
             return redirect('view_works')
     return render(request,'add_works.html',{'form' : form})
 
+@login_required
+@user_passes_test(is_admin)
 def view_works(request):
     data = work_types.objects.all()
     return render(request,'view_works.html',{'data' : data})
 
+# def view_painting(request):
+#     data = work_types.objects.filter(works='painting')
+#     return render(request,'view_painting.html', {'data' : data})
+
+@login_required
+@user_passes_test(is_admin)
 def update_works(request,id):
     data = work_types.objects.get(id=id)
     form = work_form(instance=data)
@@ -41,6 +56,8 @@ def update_works(request,id):
             return redirect('view_works')
     return render(request,'edit_works.html',{'form' : form})
 
+@login_required
+@user_passes_test(is_admin)
 def delete_works(request,id):
     data = work_types.objects.get(id=id)
     form = work_form(instance=data)
@@ -63,6 +80,24 @@ def view_worker(request):
     data = customuser.objects.filter(is_worker=True)
     return render(request,'view_worker.html',{'data' : data})
 
+# def view_painter(request):
+#     data = customuser.objects.filter(is_worker=True, type_of_work__works='painting')
+#     schedules = schedule.objects.filter(type_of_work__works='painting')
+#     return render(request,'view_painter.html', {'data' : data, 'schedules' : schedules})
+def view_painter(request):
+    # data = customuser.objects.filter(is_worker=True, type_of_work__works='painting')
+    # schedule_ids = data.values_list('id', flat=True)  # Get the IDs of customusers matching the filter
+    # schedules = schedule.objects.filter(type_of_work__works='painting', Customuser__in=schedule_ids)
+    # return render(request, 'view_painter.html', {'data': data, 'schedules': schedules})
+    data = customuser.objects.filter(is_worker=True, type_of_work__works='painting')
+    schedules = schedule.objects.filter(type_of_work__works='painting',Customuser__in=data)
+    return render(request,'view_painter.html',{'data':data, 'schedules' : schedules})
+
+def view_carpenter(request):
+    data = customuser.objects.filter(is_worker=True, type_of_work__works='carpentery')
+    schedules = schedule.objects.filter(type_of_work__works='carpentery',Customuser__in=data)
+    return render(request, 'view_carpenter.html', {'data': data, 'schedules': schedules})
+
 def update_worker(request,id):
     data = customuser.objects.get(id=id)
     form = WorkerForm(instance=data)
@@ -74,7 +109,8 @@ def update_worker(request,id):
     return render(request,'edit_worker.html',{'form' : form})
 
 
-
+@login_required
+@user_passes_test(is_admin)
 def delete_worker(request,id):
     # data = CustomUser.objects.get(id=id)
     # form = WorkerForm(instance=data)
@@ -90,13 +126,34 @@ def add_customer(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_customer = True
+            user.is_active = False
             user.save()
+            messages.info(request,'waiting for admin approval')
             return redirect('view_customer')
     return render(request,'add_customer.html',{'form' : form})
 
+def approve_customer(request, customer_id):
+    customer = customuser.objects.get(id=customer_id)
+    customer.is_active = True
+    customer.save()
+    messages.info(request, 'Customer approved')
+    return redirect('view_customer')
+
+def reject_customer(request, customer_id):
+    customer = customuser.objects.get(id=customer_id)
+    customer.delete()
+    messages.info(request, 'Customer rejected')
+    return redirect('view_customer')
+
+
 def view_customer(request):
-    data = customuser.objects.filter(is_customer=True)
+    data = customuser.objects.filter(is_customer=True,is_active=True)
     return render(request,'view_customer.html',{'data' : data})
+
+def view_customer_needsApproval(request):
+    data = customuser.objects.filter(is_customer=True,is_active=False)
+    return render(request,'view_customer_needsApproval.html',{'data' : data})
+
 
 def update_customer(request,id):
     data = customuser.objects.get(id=id)
@@ -108,10 +165,12 @@ def update_customer(request,id):
             return redirect('view_customer')
     return render(request,'edit_customer.html',{'form' : form})
 
-
+@login_required
+@user_passes_test(is_admin)
 def delete_customer(request,id):
     customuser.objects.get(id=id).delete()
     return redirect('view_customer')
+
 
 def customer_dashboard(request):
     welcome = f'welcome,{request.user.username}'
@@ -153,6 +212,25 @@ def view_customerschedule(request):
     data = schedule.objects.all()
     return render(request,'view_customerschedule.html',{'data' : data})
 
+def painter_schedule(request):
+    data = schedule.objects.filter(type_of_work__works='painting')
+    return render(request,'view_painter_schedule.html',{'data':data})
+
+def carpenter_schedule(request):
+    data = schedule.objects.filter(type_of_work__works='carpentry')
+    return render(request,'view_carpenter_schedule.html',{'data' : data})
+
+# def view_customer_painter(request):
+#     # painters = customuser.objects.filter(is_worker=True,type_of_work__works='painting')
+#     # schedules = schedule.objects.filter(type_of_work__works='painting')
+#     painting_type = work_types.objects.get(works='painting')
+#     painters = customuser.objects.filter(is_worker=True, type_of_work=painting_type)
+#     schedules = schedule.objects.filter(type_of_work=painting_type)
+#
+#
+#
+#     return render(request,'view_customer_painter.html',{'schedules' : schedules, 'painters':painters})
+
 
 def update_schedulework(request,id):
     username = request.user.username
@@ -172,8 +250,9 @@ def delete_schedulework(request,id):
     return redirect('view_schedulework')
 
 def worker_dashboard(request):
+    welcome = f'welcome,{request.user.username}'
     data = customuser.objects.filter(is_worker=True)
-    return render(request,'worker_dashboard.html',{'data' : data})
+    return render(request,'worker_dashboard.html',{'data' : data, 'welcome' : welcome})
 
 
 # def available_schedules(request):
@@ -250,9 +329,9 @@ def login_user(request):
     return render(request,'login.html')
 
 
-def welcome(request):
-    username = request.user.username
-    return render(request,'welcome.html',{'username' : username})
+# def welcome(request):
+#     username = request.user.username
+#     return render(request,'welcome.html',{'username' : username})
 
 def logout_user(request):
     logout(request)
@@ -276,7 +355,7 @@ def view_payment(request):
 
 # @login_required -this is a decorator for security but now i commented this
 
-
+@login_required
 def view_userpayment(request):
     user = request.user
     data = Bill.objects.filter(Customuser=user)
@@ -309,6 +388,7 @@ def bill_history(request):
     return render(request,'view_bill_history.html',{'bills' : bill})
 
 
+@login_required
 def complaint(request):
     username = request.user.username
     form = complaint_form(initial={'Customuser': request.user})
@@ -320,6 +400,7 @@ def complaint(request):
             return redirect('view_complaint')
     return render(request, 'complaint.html', {'form': form, 'username': username})
 
+@login_required
 def view_complaint(request):
     user = request.user
     comp = complaints.objects.filter(Customuser=user)
@@ -332,6 +413,9 @@ def view_complaint(request):
 #         messages.info(request,'no access other than admin')
 #         return redirect('customer_dashboard')
 #     return render(request,'view_complaint_admin.html',{'comps' : comp})
+
+@login_required
+@user_passes_test(is_admin)
 def view_complaint_admin(request):
     if request.user.is_superuser:
         comps = complaints.objects.all().select_related('Customuser')
@@ -368,3 +452,7 @@ def reply_complaint(request, id):
         messages.info(request, 'No access other than admin')
         return redirect('customer_dashboard')
     return render(request, 'reply_complaint.html', {'form': form, 'comp': comp})
+
+
+def about_us(request):
+    return  render(request,'about_us.html')

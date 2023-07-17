@@ -41,7 +41,17 @@ urlpatterns = [
     path('complaint',views.complaint,name='complaint'),
     path('view_complaint',views.view_complaint,name='view_complaint'),
     path('view_complaint_admin',views.view_complaint_admin,name='view_complaint_admin'),
-    path('reply_complaint/<int:id>/',views.reply_complaint,name='reply_complaint')
+    path('reply_complaint/<int:id>/',views.reply_complaint,name='reply_complaint'),
+    path('view_painter',views.view_painter,name='view_painter'),
+    path('view_carpenter',views.view_carpenter,name='view_carpenter'),
+    path('painter_schedule',views.painter_schedule,name='painter_schedule'),
+    path('carpenter_schedule',views.carpenter_schedule,name='carpenter_schedule'),
+    path('about_us',views.about_us,name='about_us'),
+    path('approve_customer/<int:customer_id>/',views.approve_customer,name='approve_customer'),
+    path('reject_customer/<int:customer_id>/',views.reject_customer,name='reject_customer'),
+    path('view_customer_needsApproval',views.view_customer_needsApproval,name='view_customer_needsApproval')
+
+
 
 ]
 

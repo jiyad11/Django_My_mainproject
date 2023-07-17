@@ -7,6 +7,7 @@ from django.utils import timezone
 
 class work_types(models.Model):
     works = models.CharField(max_length=25)
+    # Customuser = models.ForeignKey('customuser',on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return self.works
@@ -21,6 +22,7 @@ class customuser(AbstractUser):
     date_of_birth = models.DateField(null=True)
     gender = models.CharField(max_length=30,null=True)
     type_of_work = models.ForeignKey(work_types,on_delete=models.CASCADE,null=True)
+    is_active = models.BooleanField(default=False)
 
 
 class schedule(models.Model):
@@ -28,6 +30,7 @@ class schedule(models.Model):
     date_available = models.DateField()
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)
+    type_of_work = models.ForeignKey(work_types,on_delete=models.CASCADE,null=True, related_name='schedules')
 
 class appointment(models.Model):
     Customuser = models.ForeignKey(customuser,on_delete=models.CASCADE,null=True)
