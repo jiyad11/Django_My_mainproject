@@ -23,6 +23,7 @@ from mypro import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myapp.urls')),
+
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 #U CAN USE THIS METHOD TOO FOR MEDIA LOADING

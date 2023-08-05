@@ -3,12 +3,28 @@ from django.urls import path
 from myapp import views
 
 urlpatterns = [
+    ## Home ####
+    path('',views.index,name='index'),
     path('index',views.index,name='index'),
+
+    ############### Admin #####################
     path('admin_dashboard',views.admin_dashboard,name='admin_dashboard'),
-    path('add_works',views.add_works,name='add_works'),
-    path('view_works',views.view_works,name='view_works'),
-    path('update_works/<int:id>/',views.update_works,name='update_works'),
-    path('delete_works/<int:id>/',views.delete_works,name='delete_works'),
+    path('add_works', views.add_works, name='add_works'),
+    path('view_works', views.view_works, name='view_works'),
+    path('update_works/<int:id>/', views.update_works, name='update_works'),
+    path('delete_works/<int:id>/', views.delete_works, name='delete_works'),
+    path('waiting_for_approval',views.waiting_for_approval,name='waiting_for_approval'),
+
+    ################ Worker ###################
+    path('worker_dashboard', views.worker_dashboard, name='worker_dashboard'),
+
+    ################ Customer ####################//
+    path('customer_dashboard', views.customer_dashboard, name='customer_dashboard'),
+    path('view_loggedIn_customer_only', views.view_loggedIn_customer_only, name='view_loggedIn_customer_only'),
+
+
+
+
     path('add_worker', views.add_worker, name='add_worker'),
     path('view_worker', views.view_worker, name='view_worker'),
     path('update_worker/<int:id>/', views.update_worker, name='update_worker'),
@@ -17,9 +33,7 @@ urlpatterns = [
     path('view_customer', views.view_customer, name='view_customer'),
     path('update_customer/<int:id>/', views.update_customer, name='update_customer'),
     path('delete_customer/<int:id>/', views.delete_customer, name='delete_customer'),
-    path('customer_dashboard', views.customer_dashboard, name='customer_dashboard'),
     path('customer_profilecard',views.customer_profilecard,name='customer_profilecard'),
-    path('worker_dashboard',views.worker_dashboard,name='worker_dashboard'),
     path('schedule_work',views.schedule_work,name='schedule_work'),
     path('view_schedulework',views.view_schedulework,name='view_schedulework'),
     path('view_customerschedule', views.view_customerschedule, name='view_customerschedule'),
@@ -49,7 +63,9 @@ urlpatterns = [
     path('about_us',views.about_us,name='about_us'),
     path('approve_customer/<int:customer_id>/',views.approve_customer,name='approve_customer'),
     path('reject_customer/<int:customer_id>/',views.reject_customer,name='reject_customer'),
-    path('view_customer_needsApproval',views.view_customer_needsApproval,name='view_customer_needsApproval')
+    path('view_customer_needsApproval',views.view_customer_needsApproval,name='view_customer_needsApproval'),
+    path('view_admin_appointment',views.view_admin_appointment,name='view_admin_appointment'),
+    path('view_admin_workerAppointment',views.view_admin_workerAppointment,name='view_admin_workerAppointment'),
 
 
 

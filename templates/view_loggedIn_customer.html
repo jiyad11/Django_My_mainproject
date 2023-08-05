@@ -1,0 +1,25 @@
+{% extends 'customer_dashboard.html' %}
+{% block content %}
+
+
+  <div class="container">
+      <div style="width: 500px; height: 250px;" class="card">
+
+      <ul class="list-group" style="list-style: none; text-align: left;">
+          {% for i in data %}
+         {% if i.photo %}
+        <li class="card-img-top"><img src="{{i.photo.url}}" height="300px" width="100%"></li>
+        {% endif %}
+
+        <li class="list-group-item fs-4">Username : {{i.username}} </li>
+        <li class="list-group-item fs-4">Fullname : {{i.first_name}} {{i.last_name}} </li>
+
+        <li class="list-group-item fs-5">Email : {{i.email}}</li>
+        <li class="list-group-item fs-5">Address : {{i.address}}</li>
+
+        {% endfor %}
+        </ul>
+    </div>
+    </div>
+
+{% endblock %}

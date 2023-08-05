@@ -1,0 +1,41 @@
+{% extends 'admin_dashboard.html' %}
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+<table class="table table-bordered">
+{% for a in appo %}
+<tr>
+  <td>{{forloop.counter}}</td>
+  <td>{{a.Customuser.username}}</td>
+  <td>{{a.Schedule.date_available}}</td>
+  <td>{{a.Schedule.start_time}}</td>
+  <td>{{a.Schedule.end_time}}</td>
+  {% if a.status == 0 %}
+  <td>
+    <form method="post" action="{% url 'approve_appointment' a.id %}">
+      {% csrf_token %}
+      <a>Approve</a>
+    </form>
+  </td>
+  <td>
+    <form method="post" action="{% url 'reject_appointment' a.id %}">
+      {% csrf_token %}
+      <a>Reject</a>
+    </form>
+  </td>
+  {% elif a.status == 1 %}
+  <td>
+    <a>approved</a>
+  </td>
+  {% elif a.status == 2 %}
+  <td>
+    <a>rejected</a>
+  </td>
+  {% endif %}
+</tr>
+{% endfor %}
+  </table>
+    </div>
+</div>
+{% endblock %}

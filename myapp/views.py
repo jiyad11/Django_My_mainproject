@@ -10,18 +10,27 @@ from myapp.forms import work_form, WorkerForm, customer_form, schedule_form, bil
 from myapp.models import work_types, schedule, customuser, Bill, card, appointment, complaints
 
 
-# Create your views here.
-def index(request):
-    return render(request,'index.html')
-
-def admin_dashboard(request):
-    return render(request,'admin_dashboard.html')
 
 #we redirecting using views function name, not htmlname
 
+
+# Create your views here.
+
+########################################################################################
 def is_admin(user):
     return user.is_authenticated and user.is_superuser  ## The is_authenticated attribute checks if a user is authenticated,
                       ## meaning they have logged in and their session is active.
+
+##########################################################################################
+
+def index(request):
+    return render(request,'index.html')
+
+@login_required
+@user_passes_test(is_admin)
+def admin_dashboard(request):
+    return render(request,'admin_dashboard.html')
+
 
 @login_required
 @user_passes_test(is_admin)
@@ -73,8 +82,10 @@ def add_worker(request):
             user.is_worker = True
             user.save()
             messages.info(request,'worker added successful')
-            return redirect('view_worker')
+            return redirect('waiting_for_approval')
     return render(request,'add_worker.html',{'form' : form})
+
+
 
 def view_worker(request):
     data = customuser.objects.filter(is_worker=True)
@@ -119,6 +130,7 @@ def delete_worker(request,id):
     customuser.objects.get(id=id).delete()
     return redirect('view_worker')
 
+
 def add_customer(request):
     form = customer_form()
     if request.method == 'POST':
@@ -129,8 +141,11 @@ def add_customer(request):
             user.is_active = False
             user.save()
             messages.info(request,'waiting for admin approval')
-            return redirect('view_customer')
+            return redirect('waiting_for_approval')
     return render(request,'add_customer.html',{'form' : form})
+
+def waiting_for_approval(request):
+    return render(request,'waiting_for_approval.html')
 
 def approve_customer(request, customer_id):
     customer = customuser.objects.get(id=customer_id)
@@ -150,12 +165,18 @@ def view_customer(request):
     data = customuser.objects.filter(is_customer=True,is_active=True)
     return render(request,'view_customer.html',{'data' : data})
 
+def view_loggedIn_customer_only(request):
+    data = customuser.objects.filter(username=request.user.username)
+    return render(request,'view_loggedIn_customer.html',{'data':data})
+
 def view_customer_needsApproval(request):
     data = customuser.objects.filter(is_customer=True,is_active=False)
     return render(request,'view_customer_needsApproval.html',{'data' : data})
 
 
+@login_required(login_url='login_user')
 def update_customer(request,id):
+    user = request.user
     data = customuser.objects.get(id=id)
     form = customer_form(instance=data)
     if request.method == 'POST':
@@ -163,7 +184,7 @@ def update_customer(request,id):
         if form.is_valid():
             form.save()
             return redirect('view_customer')
-    return render(request,'edit_customer.html',{'form' : form})
+    return render(request,'edit_customer.html',{'form' : form, 'user':user})
 
 @login_required
 @user_passes_test(is_admin)
@@ -172,6 +193,8 @@ def delete_customer(request,id):
     return redirect('view_customer')
 
 
+@login_required(login_url='login_user')
+@user_passes_test(lambda u : u.is_customer)
 def customer_dashboard(request):
     welcome = f'welcome,{request.user.username}'
     data = customuser.objects.filter(is_customer=True)
@@ -249,6 +272,8 @@ def delete_schedulework(request,id):
     schedule.objects.get(id=id).delete()
     return redirect('view_schedulework')
 
+@login_required(login_url='login_user')
+@user_passes_test(lambda u : u.is_worker)
 def worker_dashboard(request):
     welcome = f'welcome,{request.user.username}'
     data = customuser.objects.filter(is_worker=True)
@@ -277,13 +302,23 @@ def take_appointment(request,id):
     return render(request,'appointment.html', {'Schedule' : s})
 
 
-
+@login_required(login_url='login_user')
+@user_passes_test(lambda u : u.is_customer or u.is_superuser)
 def view_appointment(request):
     c = customuser.objects.get(username=request.user)
     a = appointment.objects.filter(Customuser=c)
     return render(request,'view_appointment.html',{'appointment' : a})
 
-@login_required
+def view_admin_appointment(request):
+    appo = appointment.objects.all()
+    return render(request,'view_all_appointment.html',{'appo' : appo})
+
+def view_admin_workerAppointment(request):
+    appo = appointment.objects.all()
+    return render(request,'view_all_worker_appointment.html',{'appo' : appo})
+
+
+@login_required(login_url='login_user')
 @user_passes_test(lambda u : u.is_worker)
 def view_worker_appointment(request):
     c = customuser.objects.get(username=request.user)
@@ -347,7 +382,8 @@ def payment(request):
             return redirect('view_payment')
     return render(request,'payment.html',{'form' : form})
 
-
+@login_required(login_url='login_user')
+@user_passes_test(is_admin)
 def view_payment(request):
     data = Bill.objects.all()
     return render(request,'view_payment.html',{'data' : data})
@@ -355,7 +391,7 @@ def view_payment(request):
 
 # @login_required -this is a decorator for security but now i commented this
 
-@login_required
+@login_required(login_url='login_user')
 def view_userpayment(request):
     user = request.user
     data = Bill.objects.filter(Customuser=user)
