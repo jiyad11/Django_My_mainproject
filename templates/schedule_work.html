@@ -3,6 +3,7 @@
 {% block content %}
 <div class="card">
     <div class="card-body">
+
 <form method="post">
     {% csrf_token %}
 <!--    {{username}} &#45;&#45; this is another method for show the worker who logged-in in the form-->
@@ -11,6 +12,8 @@
 
     <button class="btn btn-primary" type="submit">Set</button>
 </form>
+
+
     </div>
     </div>
 {% endblock %}

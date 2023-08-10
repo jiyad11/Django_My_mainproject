@@ -1,5 +1,8 @@
+import datetime
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.core.validators import RegexValidator
 
 from myapp.models import work_types, customuser, schedule, Bill, card, appointment, complaints
 
@@ -82,9 +85,21 @@ class bill_form(forms.ModelForm):
 
 
 class payment_form(forms.ModelForm):
+    card_no = forms.CharField(validators=[RegexValidator(regex='^.{16}$', message='please enter a valid card number')])
+    card_cvv = forms.CharField(widget=forms.PasswordInput,validators=[RegexValidator(regex='^.{3}$', message='please enter valid cvv')])
+    expiry_date = forms.DateField(widget=forms.DateInput(attrs={'type' : 'date'}))
     class Meta:
         model = card
         fields = ('bill','card_no','card_cvv','expiry_date')
+
+        def clean(self):
+            cleaned_data = super().clean()
+            expiry_date = cleaned_data.get('expiry_date')
+
+            if (expiry_date < datetime.date.today()):
+                raise forms.ValidationError("this card has expired")
+
+            return cleaned_data
 
 class complaint_form(forms.ModelForm):
     class Meta:

@@ -67,8 +67,10 @@ urlpatterns = [
     path('view_admin_appointment',views.view_admin_appointment,name='view_admin_appointment'),
     path('view_admin_workerAppointment',views.view_admin_workerAppointment,name='view_admin_workerAppointment'),
 
+    path('view_available_schedulePage',views.view_available_schedulePage,name='view_available_schedulePage'),
 
-
+    path('get_invoice/<int:id>/',views.get_invoice,name='get_invoice'),
+    path('view_invoice/<int:id>/',views.view_invoice,name='view_invoice'),
 ]
 
 

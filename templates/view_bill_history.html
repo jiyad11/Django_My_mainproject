@@ -32,7 +32,7 @@
                        </td>
 
                        <td> {% if bill.status == 1 %}
-                           <a href="">download invoice</a>
+                           <a href="{% url 'get_invoice' bill.id %}">download invoice</a>
                            {% else %}
                            Not available
                            {% endif %}

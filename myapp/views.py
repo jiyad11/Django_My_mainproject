@@ -4,11 +4,13 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
+from django.template.loader import get_template
 
 from myapp.forms import work_form, WorkerForm, customer_form, schedule_form, bill_form, complaint_form, \
     reply_complaintform
 from myapp.models import work_types, schedule, customuser, Bill, card, appointment, complaints
-
+from myapp.utils import render_to_pdf
+from django.http import HttpResponse
 
 
 #we redirecting using views function name, not htmlname
@@ -215,6 +217,7 @@ def schedule_work(request):
             form = schedule_form(request.POST)
             if form.is_valid():
                 form.save()
+                messages.info(request,'schedule created successfully')
                 return redirect('view_schedulework')
         return render(request, 'schedule_work.html', {'form': form, 'username' : username})
     else:
@@ -227,6 +230,7 @@ def view_schedulework(request):
     user = request.user
     data = schedule.objects.filter(Customuser=user)
     return render(request,'view_schedulework.html',{'data' : data})
+
 # def view_schedulework(request):
 #     data = appointment.objects.all()
 #     return render(request, 'view_schedulework.html', {'data': data})
@@ -290,7 +294,7 @@ def take_appointment(request,id):
     appo = appointment.objects.filter(Customuser=c, Schedule=s)
     if appo.exists():
         messages.info(request,'you have already requested for this schedule')
-        return redirect('view_customerschedule')
+        return redirect('view_customerschedule') # here use the message.info using loop or add a html page or js as a message to show if a user already submit an appointment
     else:
         if request.method == 'POST':
             obj = appointment()
@@ -423,6 +427,19 @@ def bill_history(request):
     bill = Bill.objects.filter(Customuser=u,status__in=[0,1,2])
     return render(request,'view_bill_history.html',{'bills' : bill})
 
+def get_invoice(request,id):
+    data = customuser.objects.get(username=request.user)
+    bill = Bill.objects.get(id=id)
+    template = get_template('invoice.html')
+    html = template.render({'data' : bill})
+    pdf = render_to_pdf('invoice.html',{'data' : bill})
+    return HttpResponse(pdf, content_type='application/pdf')
+
+def view_invoice(request,id):
+    u = customuser.objects.get(username=request.user)
+    bill = Bill.objects.filter(id=id)
+    return render(request,'invoice.html',{'data' : bill})
+
 
 @login_required
 def complaint(request):
@@ -492,3 +509,10 @@ def reply_complaint(request, id):
 
 def about_us(request):
     return  render(request,'about_us.html')
+
+# def contact_us
+
+
+
+def view_available_schedulePage(request):
+    return render(request,'view_available_schedulePage.html')

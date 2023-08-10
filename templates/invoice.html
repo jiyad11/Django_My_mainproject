@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        @page { size: a6 portrait; }
+
+        .list1{
+         text-align: start;
+         font-size: 15px;
+         margin-left: 100px;
+          }
+
+         .list2{
+         padding: 10px;
+         font-size: 20px;
+         }
+
+
+    </style>
+</head>
+<body style="text-align: center;">
+    <div class="invoice-box">
+        <header class="clearfix">
+            <div class="brand-icon navbar-brand js-scroll-trigger">
+
+                <td class="title"> <br>
+
+                <h1 class="navbar-brand js-scroll-trigger">E-Home Service</h1>
+                </td>
+            </div>
+            <center><h2>invoice</h2></center>
+            <div style="margin-top: 10px; margin-left: 10px">
+                <h4 style=" text-align: start; font-size: 14px;" class="fontDate"><span>Date :</span> {{data.paid_on}}</h4>
+            </div>
+
+            <div id="project">
+                <div class="col-lg-12 mt-5">
+
+                </div>
+                <div class="list1"><h4><span>name: </span>{{data.Customuser}}</h4></div>
+                <div class="list1"><h4><span>Email: </span>{{data.Customuser.email}}</h4></div>
+                <div class="list1"><h4><span>Bill date: </span>{{data.bill_date}}</h4></div>
+                <div class="list1"><h4><span>date paid: </span>{{data.paid_on}}</h4></div>
+                <div class="list2"><h4><span>Total Amount: </span>{{data.amount}}</h4></div>
+
+
+
+            </div>
+        </header>
+
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
