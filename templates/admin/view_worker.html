@@ -1,8 +1,9 @@
-{% extends 'admin_dashboard.html' %}
+{% extends 'admin/admin_dashboard.html' %}
 {% block content %}
 <div class="card">
 <div class="card-body">
-<table class="table table-bordered">
+<div class="table-responsive">
+<table class="table table-bordered" style="background-color: white">
   <tr>
     <th>Sl No.</th>
     <th>Username</th>
@@ -13,6 +14,7 @@
     <th>gender</th>
     <th>Email</th>
     <th>Photo</th>
+    <th>Approve/Reject</th>
     <th>Update</th>
     <th>Delete</th>
   </tr>
@@ -29,13 +31,23 @@
     <td>{% if i.photo %}
       <img src="{{i.photo.url}}" height="50px">
     {% endif %}</td>
+
+     <td>
+            {% if i.is_active %}
+              Already Approved
+            {% else %}
+              <a href="{% url 'approve_worker' i.id %}" class="btn btn-success">Approve</a>
+              <a href="{% url 'reject_worker' i.id %}" class="btn btn-danger">Reject</a>
+            {% endif %}
+     </td>
+
     <td><button class="btn btn-secondary"><a href="{% url 'update_worker' i.id %}" style="color:white">update</a></button></td>
     <td><button class="btn btn-danger"><a href="{% url 'delete_worker' i.id %}" style="color:white">delete</a></button></td>
 
   </tr>
   {% endfor %}
 </table>
-
+</div>
   </div>
   </div>
 {% endblock %}

@@ -39,7 +39,7 @@ urlpatterns = [
     path('view_customerschedule', views.view_customerschedule, name='view_customerschedule'),
     path('update_schedulework/<int:id>/',views.update_schedulework,name='update_schedulework'),
     path('delete_schedulework/<int:id>/',views.delete_schedulework,name='delete_schedulework'),
-    path('login_user',views.login_user,name='login_user'),
+    path('login_user/',views.login_user,name='login_user'),
     path('logout_user/',views.logout_user,name='logout_user'),
     path('payment',views.payment,name='payment'),
     path('view_payment',views.view_payment,name='view_payment'),
@@ -63,7 +63,10 @@ urlpatterns = [
     path('about_us',views.about_us,name='about_us'),
     path('approve_customer/<int:customer_id>/',views.approve_customer,name='approve_customer'),
     path('reject_customer/<int:customer_id>/',views.reject_customer,name='reject_customer'),
+    path('approve_worker/<int:worker_id>/',views.approve_worker,name='approve_worker'),
+    path('reject_worker/<int:worker_id>/',views.reject_worker,name='reject_worker'),
     path('view_customer_needsApproval',views.view_customer_needsApproval,name='view_customer_needsApproval'),
+    path('view_worker_needsApproval',views.view_worker_needsApproval,name='view_worker_needsApproval'),
     path('view_admin_appointment',views.view_admin_appointment,name='view_admin_appointment'),
     path('view_admin_workerAppointment',views.view_admin_workerAppointment,name='view_admin_workerAppointment'),
 
@@ -71,6 +74,11 @@ urlpatterns = [
 
     path('get_invoice/<int:id>/',views.get_invoice,name='get_invoice'),
     path('view_invoice/<int:id>/',views.view_invoice,name='view_invoice'),
+
+    path('view_adminschedule',views.view_adminschedule,name='view_adminschedule'),
+    path('contact_us',views.contact_us,name='contact_us'),
+
+    # path('search_results',views.search_results,name='search_results'),
 ]
 
 

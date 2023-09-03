@@ -65,3 +65,8 @@ class complaints(models.Model):
     type_complaint = models.TextField(max_length=255)
     reply_complaint = models.TextField(max_length=255, null=True)
 
+
+
+
+
+

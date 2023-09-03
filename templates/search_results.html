@@ -1,0 +1,10 @@
+{% extends 'admin/admin_dashboard.html' %}  <!-- Extend your base template -->
+
+{% block content %}
+    <h1>Search Results for "{{ query }}"</h1>
+    <ul>
+        {% for result in results %}
+            <li>{{ result.works }}</li>  <!-- Display the search results as needed -->
+        {% endfor %}
+    </ul>
+{% endblock %}

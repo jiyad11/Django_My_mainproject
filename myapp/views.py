@@ -31,7 +31,7 @@ def index(request):
 @login_required
 @user_passes_test(is_admin)
 def admin_dashboard(request):
-    return render(request,'admin_dashboard.html')
+    return render(request,'admin/admin_dashboard.html')
 
 
 @login_required
@@ -43,17 +43,14 @@ def add_works(request):
         if form.is_valid():
             form.save()
             return redirect('view_works')
-    return render(request,'add_works.html',{'form' : form})
+    return render(request,'admin/add_works.html',{'form' : form})
 
 @login_required
 @user_passes_test(is_admin)
 def view_works(request):
     data = work_types.objects.all()
-    return render(request,'view_works.html',{'data' : data})
+    return render(request,'admin/view_works.html',{'data' : data})
 
-# def view_painting(request):
-#     data = work_types.objects.filter(works='painting')
-#     return render(request,'view_painting.html', {'data' : data})
 
 @login_required
 @user_passes_test(is_admin)
@@ -65,7 +62,8 @@ def update_works(request,id):
         if form.is_valid():
             form.save()
             return redirect('view_works')
-    return render(request,'edit_works.html',{'form' : form})
+    return render(request,'admin/edit_works.html',{'form' : form})
+
 
 @login_required
 @user_passes_test(is_admin)
@@ -85,23 +83,34 @@ def add_worker(request):
             user.save()
             messages.info(request,'worker added successful')
             return redirect('waiting_for_approval')
-    return render(request,'add_worker.html',{'form' : form})
+    return render(request,'worker/add_worker.html',{'form' : form})
+
+
+def approve_worker(request, worker_id):
+    worker = customuser.objects.get(id=worker_id)
+    worker.is_active = True
+    worker.save()
+    messages.info(request, 'worker approved')
+    return redirect('view_worker')
+
+def reject_worker(request, worker_id):
+    worker = customuser.objects.get(id=worker_id)
+    worker.delete()
+    messages.info(request, 'worker rejected')
+    return redirect('view_worker')
+
+def view_worker_needsApproval(request):
+    data = customuser.objects.filter(is_worker=True,is_active=False)
+    return render(request,'admin/view_worker_needsApproval.html',{'data' : data})
 
 
 
 def view_worker(request):
-    data = customuser.objects.filter(is_worker=True)
-    return render(request,'view_worker.html',{'data' : data})
+    data = customuser.objects.filter(is_worker=True, is_active=True)
+    return render(request,'admin/view_worker.html',{'data' : data})
 
-# def view_painter(request):
-#     data = customuser.objects.filter(is_worker=True, type_of_work__works='painting')
-#     schedules = schedule.objects.filter(type_of_work__works='painting')
-#     return render(request,'view_painter.html', {'data' : data, 'schedules' : schedules})
+
 def view_painter(request):
-    # data = customuser.objects.filter(is_worker=True, type_of_work__works='painting')
-    # schedule_ids = data.values_list('id', flat=True)  # Get the IDs of customusers matching the filter
-    # schedules = schedule.objects.filter(type_of_work__works='painting', Customuser__in=schedule_ids)
-    # return render(request, 'view_painter.html', {'data': data, 'schedules': schedules})
     data = customuser.objects.filter(is_worker=True, type_of_work__works='painting')
     schedules = schedule.objects.filter(type_of_work__works='painting',Customuser__in=data)
     return render(request,'view_painter.html',{'data':data, 'schedules' : schedules})
@@ -119,7 +128,7 @@ def update_worker(request,id):
         if form.is_valid():
             form.save()
             return redirect('view_worker')
-    return render(request,'edit_worker.html',{'form' : form})
+    return render(request,'worker/edit_worker.html',{'form' : form})
 
 
 @login_required
@@ -144,7 +153,7 @@ def add_customer(request):
             user.save()
             messages.info(request,'waiting for admin approval')
             return redirect('waiting_for_approval')
-    return render(request,'add_customer.html',{'form' : form})
+    return render(request,'customer/add_customer.html',{'form' : form})
 
 def waiting_for_approval(request):
     return render(request,'waiting_for_approval.html')
@@ -165,7 +174,7 @@ def reject_customer(request, customer_id):
 
 def view_customer(request):
     data = customuser.objects.filter(is_customer=True,is_active=True)
-    return render(request,'view_customer.html',{'data' : data})
+    return render(request,'admin/view_customer.html',{'data' : data})
 
 def view_loggedIn_customer_only(request):
     data = customuser.objects.filter(username=request.user.username)
@@ -173,7 +182,7 @@ def view_loggedIn_customer_only(request):
 
 def view_customer_needsApproval(request):
     data = customuser.objects.filter(is_customer=True,is_active=False)
-    return render(request,'view_customer_needsApproval.html',{'data' : data})
+    return render(request,'admin/view_customer_needsApproval.html',{'data' : data})
 
 
 @login_required(login_url='login_user')
@@ -186,7 +195,7 @@ def update_customer(request,id):
         if form.is_valid():
             form.save()
             return redirect('view_customer')
-    return render(request,'edit_customer.html',{'form' : form, 'user':user})
+    return render(request,'customer/edit_customer.html',{'form' : form, 'user':user})
 
 @login_required
 @user_passes_test(is_admin)
@@ -200,12 +209,12 @@ def delete_customer(request,id):
 def customer_dashboard(request):
     welcome = f'welcome,{request.user.username}'
     data = customuser.objects.filter(is_customer=True)
-    return render(request,'customer_dashboard.html',{'data' : data, 'welcome' : welcome})
+    return render(request,'customer/customer_dashboard.html',{'data' : data, 'welcome' : welcome})
 
 def customer_profilecard(request):
     username = request.user
     data = customuser.objects.filter(is_customer=True,username=request.user)
-    return render(request,'customer_profilecard.html',{'data' : data,'username' : username})
+    return render(request,'customer/customer_profilecard.html',{'data' : data,'username' : username})
 
 @login_required
 def schedule_work(request):
@@ -219,7 +228,7 @@ def schedule_work(request):
                 form.save()
                 messages.info(request,'schedule created successfully')
                 return redirect('view_schedulework')
-        return render(request, 'schedule_work.html', {'form': form, 'username' : username})
+        return render(request, 'worker/schedule_work.html', {'form': form, 'username' : username})
     else:
         messages.error(request,'no access other-than worker')
         return redirect('view_customerschedule')
@@ -231,32 +240,25 @@ def view_schedulework(request):
     data = schedule.objects.filter(Customuser=user)
     return render(request,'view_schedulework.html',{'data' : data})
 
-# def view_schedulework(request):
-#     data = appointment.objects.all()
-#     return render(request, 'view_schedulework.html', {'data': data})
 
 def view_customerschedule(request):
     data = schedule.objects.all()
-    return render(request,'view_customerschedule.html',{'data' : data})
+    return render(request,'customer/view_customerschedule.html',{'data' : data})
+
+def view_adminschedule(request):
+    data = schedule.objects.all()
+    return render(request,'admin/view_adminschedule.html',{'data' : data})
 
 def painter_schedule(request):
     data = schedule.objects.filter(type_of_work__works='painting')
     return render(request,'view_painter_schedule.html',{'data':data})
 
+
+@login_required(login_url='login_user')
 def carpenter_schedule(request):
     data = schedule.objects.filter(type_of_work__works='carpentry')
     return render(request,'view_carpenter_schedule.html',{'data' : data})
 
-# def view_customer_painter(request):
-#     # painters = customuser.objects.filter(is_worker=True,type_of_work__works='painting')
-#     # schedules = schedule.objects.filter(type_of_work__works='painting')
-#     painting_type = work_types.objects.get(works='painting')
-#     painters = customuser.objects.filter(is_worker=True, type_of_work=painting_type)
-#     schedules = schedule.objects.filter(type_of_work=painting_type)
-#
-#
-#
-#     return render(request,'view_customer_painter.html',{'schedules' : schedules, 'painters':painters})
 
 
 def update_schedulework(request,id):
@@ -272,21 +274,21 @@ def update_schedulework(request,id):
                 return redirect('view_schedulework')
     return render(request,'edit_schedulework.html',{'form' : form,'username' : username})
 
+
+
 def delete_schedulework(request,id):
     schedule.objects.get(id=id).delete()
     return redirect('view_schedulework')
+
 
 @login_required(login_url='login_user')
 @user_passes_test(lambda u : u.is_worker)
 def worker_dashboard(request):
     welcome = f'welcome,{request.user.username}'
     data = customuser.objects.filter(is_worker=True)
-    return render(request,'worker_dashboard.html',{'data' : data, 'welcome' : welcome})
+    return render(request,'worker/worker_dashboard.html',{'data' : data, 'welcome' : welcome})
 
 
-# def available_schedules(request):
-#     data = appointment.objects.all()
-#     return render(request,'available_schedules.html',{'data' : data})
 
 def take_appointment(request,id):
     s = schedule.objects.get(id=id)
@@ -327,13 +329,11 @@ def view_admin_workerAppointment(request):
 def view_worker_appointment(request):
     c = customuser.objects.get(username=request.user)
     a = appointment.objects.filter(Schedule__Customuser=c)
-    return render(request,'view_worker_appointment.html',{'appointment' : a})
+    return render(request,'worker/view_worker_appointment.html',{'appointment' : a})
         # u can also add is_worker=True inside get() to narrow the search down to only workers,but its not
         #needed right now, cos while adding schedule only workers can add it, so no probs.
-# def view_worker_appointment(request):
-#     worker = customuser.objects.get(username=request.user, is_worker=True)
-#     appointments = appointment.objects.filter(Schedule__Customuser=worker)
-#     return render(request, 'view_worker_appointment.html', {'appointments': appointments})
+
+
 
 def approve_appointment(request,id):
     a = appointment.objects.get(id=id)
@@ -360,7 +360,7 @@ def login_user(request):
             if user.is_superuser:
                 return redirect('admin_dashboard')
             elif user.is_customer:
-                return redirect('customer_dashboard')
+                return redirect('index')
             elif user.is_worker:
                 return redirect('worker_dashboard')
         else:
@@ -368,9 +368,6 @@ def login_user(request):
     return render(request,'login.html')
 
 
-# def welcome(request):
-#     username = request.user.username
-#     return render(request,'welcome.html',{'username' : username})
 
 def logout_user(request):
     logout(request)
@@ -384,13 +381,13 @@ def payment(request):
         if form.is_valid():
             form.save()
             return redirect('view_payment')
-    return render(request,'payment.html',{'form' : form})
+    return render(request,'admin/payment.html',{'form' : form})
 
 @login_required(login_url='login_user')
 @user_passes_test(is_admin)
 def view_payment(request):
     data = Bill.objects.all()
-    return render(request,'view_payment.html',{'data' : data})
+    return render(request,'admin/view_payment.html',{'data' : data})
 
 
 # @login_required -this is a decorator for security but now i commented this
@@ -459,13 +456,7 @@ def view_complaint(request):
     comp = complaints.objects.filter(Customuser=user)
     return render(request,'view_complaint.html',{'comp' : comp})
 
-# def view_complaint_admin(request):
-#     if request.user.is_superuser:
-#         comp = complaints.objects.all()
-#     else:
-#         messages.info(request,'no access other than admin')
-#         return redirect('customer_dashboard')
-#     return render(request,'view_complaint_admin.html',{'comps' : comp})
+
 
 @login_required
 @user_passes_test(is_admin)
@@ -475,21 +466,9 @@ def view_complaint_admin(request):
     else:
         messages.info(request, 'No access other than admin')
         return redirect('customer_dashboard')
-    return render(request, 'view_complaint_admin.html', {'comps': comps})
+    return render(request, 'admin/view_complaint_admin.html', {'comps': comps})
 
 
-# def reply_complaint(request,id):
-#     if request.user.is_superuser:
-#         comp = complaints.objects.get(id=id)
-#         form = reply_complaintform()
-#         if request.method == 'POST':
-#             form = reply_complaintform(request.POST)
-#             if form.is_valid():
-#                 reply = form.cleaned_data.get('reply')
-#                 comp.reply = reply
-#                 comp.save()
-#                 return redirect('view_complaint_admin')
-#     return render(request,'reply_complaint.html',{'form' : form})
 def reply_complaint(request, id):
     if request.user.is_superuser:
         comp = complaints.objects.get(id=id)
@@ -504,15 +483,20 @@ def reply_complaint(request, id):
     else:
         messages.info(request, 'No access other than admin')
         return redirect('customer_dashboard')
-    return render(request, 'reply_complaint.html', {'form': form, 'comp': comp})
+    return render(request, 'admin/reply_complaint.html', {'form': form, 'comp': comp})
 
 
 def about_us(request):
     return  render(request,'about_us.html')
 
-# def contact_us
-
+def contact_us(request):
+    return render(request,'admin/contact_us.html')
 
 
 def view_available_schedulePage(request):
     return render(request,'view_available_schedulePage.html')
+
+
+
+
+

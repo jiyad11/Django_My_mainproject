@@ -1,8 +1,11 @@
-{% extends 'admin_dashboard.html' %}
+{% extends 'admin/admin_dashboard.html' %}
 {% block content %}
-<div class="card">
-  <div class="card-body">
 
+
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+    <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
       <tr>
@@ -34,7 +37,7 @@
 
            <td>
             {% if i.is_active %}
-             approved
+              Already Approved
             {% else %}
               <a href="{% url 'approve_customer' i.id %}" class="btn btn-success">Approve</a>
               <a href="{% url 'reject_customer' i.id %}" class="btn btn-danger">Reject</a>
@@ -47,7 +50,9 @@
       </tbody>
       {% endfor %}
     </table>
-  </div>
+    </div>
 </div>
+    </div>
+    </div>
 
 {% endblock %}

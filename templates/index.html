@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Apex - Home Repair Website Template</title>
+    <title>E-Home Service</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="keywords" />
     <meta content="" name="description" />
@@ -59,11 +59,11 @@
             class="h-100 d-inline-flex align-items-center border-start border-end px-3"
           >
             <small class="fa fa-phone-alt me-2"></small>
-            <small>+012 345 6789</small>
+            <small>+91 8129600477</small>
           </div>
           <div class="h-100 d-inline-flex align-items-center border-end px-3">
             <small class="far fa-envelope-open me-2"></small>
-            <small>info@example.com</small>
+            <small>jiyadmuhammed11@gmail.com</small>
           </div>
           <div class="h-100 d-inline-flex align-items-center border-end px-3">
             <small class="far fa-clock me-2"></small>
@@ -72,16 +72,16 @@
         </div>
         <div class="col-lg-5 px-5 text-end">
           <div class="h-100 d-inline-flex align-items-center">
-            <a class="btn btn-square border-end border-start" href=" {% static 'assets_2' %} "
+            <a class="btn btn-square border-end border-start" href=" https://facebook.com/ %} "
               ><i class="fab fa-facebook-f"></i
             ></a>
-            <a class="btn btn-square border-end" href=" {% static 'assets_2' %} "
+            <a class="btn btn-square border-end" href="https://twitter.com/"
               ><i class="fab fa-twitter"></i
             ></a>
-            <a class="btn btn-square border-end" href=" {% static 'assets_2' %} "
+            <a class="btn btn-square border-end" href="https://linkedin.com/"
               ><i class="fab fa-linkedin-in"></i
             ></a>
-            <a class="btn btn-square border-end" href=" {% static 'assets_2' %} "
+            <a class="btn btn-square border-end" href="https://instagram.com/"
               ><i class="fab fa-instagram"></i
             ></a>
           </div>
@@ -92,9 +92,9 @@
 
     <!-- Navbar Start -->
     <nav
-      class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0"
+      class="navbar navbar-expand-lg bg-white navbar-light sticky-top  px-4 px-lg-5 py-lg-0"
     >
-      <a href=" {% static 'assets_2/index.html' %} " class="navbar-brand d-flex align-items-center">
+      <a href=" {% url 'index' %} " class="navbar-brand d-flex align-items-center">
         <h1 class="m-0">
           <i class="fa fa-home text-primary me-3"></i>E-HOME SERVICES
         </h1>
@@ -111,28 +111,30 @@
         <div class="navbar-nav ms-auto py-3 py-lg-0">
           <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
           <a href=" {% url 'about_us' %} " class="nav-item nav-link">About Us</a>
+
           <a href="{% url 'login_user' %}" class="nav-item nav-link">login/Register</a>
           <div class="nav-item dropdown">
             <a
               href="#"
               class="nav-link dropdown-toggle"
               data-bs-toggle="dropdown"
-              >Pages</a
+              >More</a
             >
 
             <div class="dropdown-menu bg-light m-0">
-              <a href=" {% static 'assets_2/feature.html' %} " class="dropdown-item">Features</a>
+              <a href=" {% url 'customer_dashboard' %} " class="dropdown-item">Dashboard</a>
 <!--              <a href=" {% static 'assets_2/appointment.html' %} " class="dropdown-item">Appointment</a>-->
               <ul class="dropdown-content">
-  <a href="#painterItem" class="dropdown-item">Appointment</a>
-  <li id="painterItem">painter</li>
+<!--  <a href="#painterItem" class="dropdown-item">Appointment</a>-->
+<!--  <li id="painterItem">painter</li>-->
 </ul>
               <a href=" {% static 'assets_2/team.html' %} " class="dropdown-item">Our Team</a>
               <a href=" {% static 'assets_2/testimonial.html' %} " class="dropdown-item">Testimonial</a>
-              <a href=" {% static 'assets_2/404.html' %} " class="dropdown-item">404 Page</a>
+<!--              <a href=" {% static 'assets_2/404.html' %} " class="dropdown-item">404 Page</a>-->
             </div>
           </div>
-          <a href=" {% static 'assets_2/contact.html' %} " class="nav-item nav-link">Contact Us</a>
+
+          <a href=" {% url 'contact_us' %} " class="nav-item nav-link">Contact Us</a>
         </div>
       </div>
     </nav>
@@ -168,7 +170,7 @@
 <!--                        Industrial-->
 <!--                      </li>-->
 <!--                    </ol>-->
-                    <a href=" {% static 'assets_2' %} " class="btn btn-primary py-3 px-5"
+                    <a href=" {% url 'about_us' %} " class="btn btn-primary py-3 px-5"
                       >More Details</a
                     >
                   </div>
@@ -201,7 +203,7 @@
 <!--                        Industrial-->
 <!--                      </li>-->
 <!--                    </ol>-->
-                    <a href=" {% static 'assets_2' %} " class="btn btn-primary py-3 px-5"
+                    <a href=" {% url 'about_us' %} " class="btn btn-primary py-3 px-5"
                       >More Details</a
                     >
                   </div>
@@ -310,74 +312,74 @@
     <!-- About End -->
 
     <!-- Facts Start -->
-    <div class="container-fluid my-5 p-0">
-      <div class="row g-0">
-        <div class="col-xl-3 col-sm-6 wow fadeIn" data-wow-delay="0.1s">
-          <div class="position-relative">
-            <img class="img-fluid w-100" src=" {% static 'assets_2/img/fact-1.jpg' %} " alt="" />
-            <div class="facts-overlay">
-              <h1 class="display-1">01</h1>
-              <h4 class="text-white mb-3">Construction</h4>
-              <p class="text-white">
-                Aliqu diam amet diam et eos erat ipsum lorem stet lorem sit
-                clita duo justo erat amet
-              </p>
-              <a class="text-white small" href=" {% static 'assets_2' %} "
-                >READ MORE<i class="fa fa-arrow-right ms-3"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 wow fadeIn" data-wow-delay="0.3s">
-          <div class="position-relative">
-            <img class="img-fluid w-100" src=" {% static 'assets_2/img/fact-2.jpg' %} " alt="" />
-            <div class="facts-overlay">
-              <h1 class="display-1">02</h1>
-              <h4 class="text-white mb-3">Mechanical</h4>
-              <p class="text-white">
-                Aliqu diam amet diam et eos erat ipsum lorem stet lorem sit
-                clita duo justo erat amet
-              </p>
-              <a class="text-white small" href=" {% static 'assets_2' %} "
-                >READ MORE<i class="fa fa-arrow-right ms-3"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-          <div class="position-relative">
-            <img class="img-fluid w-100" src=" {% static 'assets_2/img/fact-3.jpg' %} " alt="" />
-            <div class="facts-overlay">
-              <h1 class="display-1">03</h1>
-              <h4 class="text-white mb-3">Architecture</h4>
-              <p class="text-white">
-                Aliqu diam amet diam et eos erat ipsum lorem stet lorem sit
-                clita duo justo erat amet
-              </p>
-              <a class="text-white small" href=" {% static 'assets_2' %} "
-                >READ MORE<i class="fa fa-arrow-right ms-3"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 wow fadeIn" data-wow-delay="0.7s">
-          <div class="position-relative">
-            <img class="img-fluid w-100" src=" {% static 'assets_2/img/fact-4.jpg' %} " alt="" />
-            <div class="facts-overlay">
-              <h1 class="display-1">04</h1>
-              <h4 class="text-white mb-3">Interior Design</h4>
-              <p class="text-white">
-                Aliqu diam amet diam et eos erat ipsum lorem stet lorem sit
-                clita duo justo erat amet
-              </p>
-              <a class="text-white small" href=" {% static 'assets_2' %} "
-                >READ MORE<i class="fa fa-arrow-right ms-3"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--    <div class="container-fluid my-5 p-0">-->
+<!--      <div class="row g-0">-->
+<!--        <div class="col-xl-3 col-sm-6 wow fadeIn" data-wow-delay="0.1s">-->
+<!--          <div class="position-relative">-->
+<!--            <img class="img-fluid w-100" src=" {% static 'assets_2/img/fact-1.jpg' %} " alt="" />-->
+<!--            <div class="facts-overlay">-->
+<!--              <h1 class="display-1">01</h1>-->
+<!--              <h4 class="text-white mb-3">Construction</h4>-->
+<!--              <p class="text-white">-->
+<!--                Aliqu diam amet diam et eos erat ipsum lorem stet lorem sit-->
+<!--                clita duo justo erat amet-->
+<!--              </p>-->
+<!--              <a class="text-white small" href=" {% static 'assets_2' %} "-->
+<!--                >READ MORE<i class="fa fa-arrow-right ms-3"></i-->
+<!--              ></a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-xl-3 col-sm-6 wow fadeIn" data-wow-delay="0.3s">-->
+<!--          <div class="position-relative">-->
+<!--            <img class="img-fluid w-100" src=" {% static 'assets_2/img/fact-2.jpg' %} " alt="" />-->
+<!--            <div class="facts-overlay">-->
+<!--              <h1 class="display-1">02</h1>-->
+<!--              <h4 class="text-white mb-3">Mechanical</h4>-->
+<!--              <p class="text-white">-->
+<!--                Aliqu diam amet diam et eos erat ipsum lorem stet lorem sit-->
+<!--                clita duo justo erat amet-->
+<!--              </p>-->
+<!--              <a class="text-white small" href=" {% static 'assets_2' %} "-->
+<!--                >READ MORE<i class="fa fa-arrow-right ms-3"></i-->
+<!--              ></a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-xl-3 col-sm-6 wow fadeIn" data-wow-delay="0.5s">-->
+<!--          <div class="position-relative">-->
+<!--            <img class="img-fluid w-100" src=" {% static 'assets_2/img/fact-3.jpg' %} " alt="" />-->
+<!--            <div class="facts-overlay">-->
+<!--              <h1 class="display-1">03</h1>-->
+<!--              <h4 class="text-white mb-3">Architecture</h4>-->
+<!--              <p class="text-white">-->
+<!--                Aliqu diam amet diam et eos erat ipsum lorem stet lorem sit-->
+<!--                clita duo justo erat amet-->
+<!--              </p>-->
+<!--              <a class="text-white small" href=" {% static 'assets_2' %} "-->
+<!--                >READ MORE<i class="fa fa-arrow-right ms-3"></i-->
+<!--              ></a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-xl-3 col-sm-6 wow fadeIn" data-wow-delay="0.7s">-->
+<!--          <div class="position-relative">-->
+<!--            <img class="img-fluid w-100" src=" {% static 'assets_2/img/fact-4.jpg' %} " alt="" />-->
+<!--            <div class="facts-overlay">-->
+<!--              <h1 class="display-1">04</h1>-->
+<!--              <h4 class="text-white mb-3">Interior Design</h4>-->
+<!--              <p class="text-white">-->
+<!--                Aliqu diam amet diam et eos erat ipsum lorem stet lorem sit-->
+<!--                clita duo justo erat amet-->
+<!--              </p>-->
+<!--              <a class="text-white small" href=" {% static 'assets_2' %} "-->
+<!--                >READ MORE<i class="fa fa-arrow-right ms-3"></i-->
+<!--              ></a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
     <!-- Facts End -->
 
     <!-- Features Start -->
@@ -492,15 +494,14 @@
         <div class="row g-4 justify-content-center">
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="service-item bg-light overflow-hidden h-100">
-              <img class="img-fluid" src=" {% static 'assets_2/img/service-1.jpg' %} " alt="" />
+              <img class="img-fluid" src=" {% static 'assets_2/img/carpentry.jpg' %} "  alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Building Construction</h5>
+                <h5 class="mb-3">Carpentry</h5>
                 <p>
-                  Tempor erat elitr rebum at clita dolor diam ipsum sit diam
-                  amet diam et eos
+                    View Carpenter's Availability: Discover our carpenter's open slots and select a time that suits you. Your chosen time will be reviewed and confirmed by our team.
                 </p>
-                <a class="small" href=" {% static 'assets_2' %} "
-                  >READ MORE<i class="fa fa-arrow-right ms-3"></i
+                <a class="small" href=" {% url 'carpenter_schedule' %} "
+                  >click here<i class="fa fa-arrow-right ms-3"></i
                 ></a>
               </div>
             </div>
@@ -509,7 +510,7 @@
             <div class="service-item bg-light overflow-hidden h-100">
               <img class="img-fluid" src=" {% static 'assets_2/img/service-2.jpg' %} " alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Home Maintainance</h5>
+                <h5 class="mb-3">Welding & installation</h5>
                 <p>
                   Tempor erat elitr rebum at clita dolor diam ipsum sit diam
                   amet diam et eos
@@ -524,7 +525,7 @@
             <div class="service-item bg-light overflow-hidden h-100">
               <img class="img-fluid" src=" {% static 'assets_2/img/service-3.jpg' %} " alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Renovation and Painting</h5>
+                <h5 class="mb-3">Renovation & Painting</h5>
                 <p>
                   Tempor erat elitr rebum at clita dolor diam ipsum sit diam
                   amet diam et eos
@@ -554,7 +555,7 @@
             <div class="service-item bg-light overflow-hidden h-100">
               <img class="img-fluid" src=" {% static 'assets_2/img/service-5.jpg' %} " alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Tiling and Painting</h5>
+                <h5 class="mb-3">Tiling and construction</h5>
                 <p>
 
                   Tempor erat elitr rebum at clita dolor diam ipsum sit diam
@@ -814,23 +815,22 @@
         <div class="row g-5">
           <div class="col-lg-3 col-md-6">
             <h1 class="text-white mb-4">
-              <i class="fa fa-building text-primary me-3"></i>APEX
+              <i class="fa fa-home text-primary me-3"  ></i>E-Home services
             </h1>
             <p>
-              Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat
-              ipsum et lorem et sit, sed stet lorem sit clita
+             Stay connected with us! Follow, like, and share to keep up with the latest updates, exclusive content, and engaging discussions.
             </p>
             <div class="d-flex pt-2">
-              <a class="btn btn-square btn-outline-primary me-1" href=" {% static 'assets_2' %} "
+              <a class="btn btn-square btn-outline-primary me-1" href="https://twitter.com/"
                 ><i class="fab fa-twitter"></i
               ></a>
-              <a class="btn btn-square btn-outline-primary me-1" href=" {% static 'assets_2' %} "
+              <a class="btn btn-square btn-outline-primary me-1" href="https://www.facebook.com/"
                 ><i class="fab fa-facebook-f"></i
               ></a>
-              <a class="btn btn-square btn-outline-primary me-1" href=" {% static 'assets_2' %} "
+              <a class="btn btn-square btn-outline-primary me-1" href="https://www.youtube.com/"
                 ><i class="fab fa-youtube"></i
               ></a>
-              <a class="btn btn-square btn-outline-primary me-0" href=" {% static 'assets_2' %} "
+              <a class="btn btn-square btn-outline-primary me-0" href="https://www.linkedin.com/"
                 ><i class="fab fa-linkedin-in"></i
               ></a>
             </div>
@@ -838,34 +838,34 @@
           <div class="col-lg-3 col-md-6">
             <h4 class="text-light mb-4">Address</h4>
             <p>
-              <i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA
+              <i class="fa fa-map-marker-alt me-3"></i>Calicut, Kerala, India
             </p>
-            <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-            <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
+            <p><i class="fa fa-phone-alt me-3"></i>+91 8129600477</p>
+            <p><i class="fa fa-envelope me-3"></i>jiyadmuhammed11@gmail.com</p>
           </div>
           <div class="col-lg-3 col-md-6">
             <h4 class="text-light mb-4">Quick Links</h4>
-            <a class="btn btn-link" href=" {% static 'assets_2' %} ">About Us</a>
-            <a class="btn btn-link" href=" {% static 'assets_2' %} ">Contact Us</a>
+            <a class="btn btn-link" href=" {% url 'about_us' %} ">About Us</a>
+            <a class="btn btn-link" href=" {% url 'contact_us' %} ">Contact Us</a>
             <a class="btn btn-link" href=" {% static 'assets_2' %} ">Our Services</a>
-            <a class="btn btn-link" href=" {% static 'assets_2' %} ">Terms & Condition</a>
-            <a class="btn btn-link" href=" {% static 'assets_2' %} ">Support</a>
+<!--            <a class="btn btn-link" href=" {% static 'assets_2' %} ">Terms & Condition</a>-->
+<!--            <a class="btn btn-link" href=" {% static 'assets_2' %} ">Support</a>-->
           </div>
           <div class="col-lg-3 col-md-6">
-            <h4 class="text-light mb-4">Newsletter</h4>
-            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+            <h4  class="text-light mb-4">Newsletter</h4>
+            <p>it's under maintainance</p>
             <div class="position-relative mx-auto" style="max-width: 400px">
               <input
                 class="form-control bg-transparent w-100 py-3 ps-4 pe-5"
                 type="text"
                 placeholder="Your email"
+                readonly
               />
               <button
                 type="button"
+                disabled
                 class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
-              >
-
-                SignUp
+              >SignUp
               </button>
             </div>
           </div>
@@ -875,7 +875,10 @@
         <div class="container">
           <div class="row">
             <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-              &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+
+              &copy; <a id="year"></a> <br>
+              <a href="#">E-Home Services</a>, All Right Reserved.
+
             </div>
             <div class="col-md-6 text-center text-md-end">
               <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
@@ -904,5 +907,15 @@
 
     <!-- Template Javascript -->
     <script src=" {% static 'assets_2/js/main.js' %} "></script>
+
+
+<!--   this is for the year in copyright footer-->
+    <script>
+      const date = new Date();
+      const myYear = date.getFullYear();
+
+      document.getElementById('year').innerHTML = `Copyright ${myYear}`;
+    </script>
+
   </body>
 </html>

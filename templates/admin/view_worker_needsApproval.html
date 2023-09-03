@@ -1,0 +1,53 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Sl No.</th>
+        <th>firstname</th>
+        <th>lastname</th>
+        <th>username</th>
+        <th>email</th>
+        <th>address</th>
+        <th>photo</th>
+        <th>actions</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      {% for i in data %}
+      <tbody>
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.first_name}}</td>
+        <td>{{i.last_name}}</td>
+        <td>{{i.username}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.address}}</td>
+        <td>{% if i.photo %}
+          <img src="{{i.photo.url}}" height="50px">
+          {% endif %}
+        </td>
+
+           <td>
+            {% if i.is_active %}
+             approved
+            {% else %}
+              <a href="{% url 'approve_worker' i.id %}" class="btn btn-success">Approve</a>
+              <a href="{% url 'reject_worker' i.id %}" class="btn btn-danger">Reject</a>
+            {% endif %}
+          </td>
+
+        <td><button class="btn btn-primary"><a href="{% url 'update_customer' i.id %}" style="color:white">update</a></button></td>
+        <td><button class="btn btn-danger"><a href="{% url 'delete_customer' i.id %}" style="color:white">delete</a></button></td>
+      </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+{% endblock %}
