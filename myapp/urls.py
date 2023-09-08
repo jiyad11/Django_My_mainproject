@@ -36,7 +36,7 @@ urlpatterns = [
     path('customer_profilecard',views.customer_profilecard,name='customer_profilecard'),
     path('schedule_work',views.schedule_work,name='schedule_work'),
     path('view_schedulework',views.view_schedulework,name='view_schedulework'),
-    path('view_customerschedule', views.view_customerschedule, name='view_customerschedule'),
+    # path('view_customerschedule', views.view_customerschedule, name='view_customerschedule'),
     path('update_schedulework/<int:id>/',views.update_schedulework,name='update_schedulework'),
     path('delete_schedulework/<int:id>/',views.delete_schedulework,name='delete_schedulework'),
     path('login_user/',views.login_user,name='login_user'),
@@ -58,8 +58,16 @@ urlpatterns = [
     path('reply_complaint/<int:id>/',views.reply_complaint,name='reply_complaint'),
     path('view_painter',views.view_painter,name='view_painter'),
     path('view_carpenter',views.view_carpenter,name='view_carpenter'),
+
+
     path('painter_schedule',views.painter_schedule,name='painter_schedule'),
     path('carpenter_schedule',views.carpenter_schedule,name='carpenter_schedule'),
+    path('welder_schedule',views.welder_schedule,name='welder_schedule'),
+    path('electrician_schedule',views.electrician_schedule,name='electrician_schedule'),
+    path('plumber_schedule',views.plumber_schedule,name='plumber_schedule'),
+    path('tilesWorker_schedule',views.tilesWorker_schedule,name='tilesWorker_schedule'),
+
+
     path('about_us',views.about_us,name='about_us'),
     path('approve_customer/<int:customer_id>/',views.approve_customer,name='approve_customer'),
     path('reject_customer/<int:customer_id>/',views.reject_customer,name='reject_customer'),
@@ -77,8 +85,13 @@ urlpatterns = [
 
     path('view_adminschedule',views.view_adminschedule,name='view_adminschedule'),
     path('contact_us',views.contact_us,name='contact_us'),
+    # path('testimonials',views.testimonials,name='testimonials'),
+
 
     # path('search_results',views.search_results,name='search_results'),
+
+    path('bill_history_admin',views.bill_history_admin,name='bill_history_admin'),
+
 ]
 
 

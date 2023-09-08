@@ -11,7 +11,10 @@
 
                 <td>
                     {% if comp.reply_complaint %}
-                    <p><b>already replied :</b> <br>{{comp.reply_complaint}}</p>
+                    <p>
+                        <small>{{comp.reply_date}}</small><br></small>
+                        <b>already replied :</b> <br><span class="text-warning fs-4">{{comp.reply_complaint}}</span>
+                    </p>
                     {% else %}
                     <a href="{% url 'reply_complaint' comp.id %}" class="btn btn-primary">reply now</a>
                     {% endif %}

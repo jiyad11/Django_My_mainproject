@@ -104,13 +104,24 @@ class payment_form(forms.ModelForm):
 class complaint_form(forms.ModelForm):
     class Meta:
         model = complaints
-        fields = ('Customuser','type_complaint')
+        fields = ('Customuser','type_complaint','complaint_date')
 
-class reply_complaintform(forms.Form):
-    reply_complaint = forms.CharField(widget=forms.Textarea, required=True)
+# class reply_complaintform(forms.Form):
+#     reply_complaint = forms.CharField(widget=forms.Textarea, required=True)
+#
+#     def clean_reply(self):
+#         reply_complaint = self.cleaned_data['reply_complaint']
+#         if reply_complaint == '':
+#             raise forms.ValidationError('This Field is required')
+#         return reply_complaint
 
-    def clean_reply(self):
+class reply_complaintform(forms.ModelForm):
+    class Meta:
+        model = complaints  # Specify the model you want to use for the form
+        fields = ['reply_complaint', 'reply_date']  # List the fields you want in the form
+
+    def clean_reply_complaint(self):
         reply_complaint = self.cleaned_data['reply_complaint']
-        if reply_complaint == '':
-            raise forms.ValidationError('This Field is required')
+        if not reply_complaint:
+            raise forms.ValidationError('This field is required')
         return reply_complaint

@@ -1,0 +1,48 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-body">
+       <div class="single-table">
+           <div class="table-responsive">
+               <table class="table text-centre">
+                   <thead class="text-uppercase bg-info">
+                   <tr>
+                       <th>Id</th>
+                       <th>name</th>
+                       <th>date</th>
+
+                       <th>paid status</th>
+                       <th>reciept</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   {% for bill in bills %}
+                   <tr>
+                       <td>{{forloop.counter}}</td>
+                       <td>{{bill.Customuser.username}}</td>
+                       <td>{{bill.bill_date}}</td>
+                       <td>
+                           {% if bill.status == 0 %}
+                           <button class="btn btn-warning">bill pending</button>
+                           {% elif bill.status == 1 %}
+                           <button class="btn btn-success">paid on {{bill.paid_on}}</button>
+                           {% elif bill.status == 2 %}
+                           <button class="btn btn-primary">choose pay direct</button>
+                           {% endif %}
+                       </td>
+
+                       <td> {% if bill.status == 1 %}
+                           <a href="{% url 'get_invoice' bill.id %}">download invoice</a>
+                           {% else %}
+                           Not available
+                           {% endif %}
+                       </td>
+                   </tr>
+                   {% endfor %}
+                   </tbody>
+               </table>
+           </div>
+       </div>
+    </div>
+</div>
+{% endblock %}

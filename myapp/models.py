@@ -63,7 +63,9 @@ class card(models.Model):
 class complaints(models.Model):
     Customuser = models.ForeignKey(customuser,on_delete=models.CASCADE)
     type_complaint = models.TextField(max_length=255)
+    complaint_date = models.DateTimeField(default=timezone.now)
     reply_complaint = models.TextField(max_length=255, null=True)
+    reply_date = models.DateTimeField(default=timezone.now)
 
 
 

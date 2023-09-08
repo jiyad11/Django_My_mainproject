@@ -7,9 +7,12 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{i.Customuser.username}}</td>
-                <td>{{i.type_complaint}}</td>
+                <td><small>{{i.complaint_date}}</small><br><span class="text-primary fs-4">{{i.type_complaint}}</span></td>
                 {% if i.reply_complaint %}
-                <td> <h6>Reply From The Admin : </h6><br>{{i.reply_complaint}}</td>
+                <td >
+                    <h6>Reply From The Admin : </h6> <small>{{i.reply_date}}</small>
+                    <br><span class="text-warning fs-4">{{i.reply_complaint}}</span>
+                </td>
 
                 {% endif %}
 

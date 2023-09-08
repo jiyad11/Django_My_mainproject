@@ -4,6 +4,16 @@
 <form method="post">
     {% csrf_token %}
     {{form|crispy}}
-    <button type="submit">submit complaint</button>
+    <button  class="btn btn-success" onsubmit={theDate}  type="submit">submit complaint</button>
 </form>
+
+
+<script>
+      const date = new Date();
+      const theDate = date.getFullDate();
+
+    function myDate(){
+        return theDate();
+    }
+    </script>
 {% endblock %}

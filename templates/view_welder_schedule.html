@@ -1,15 +1,5 @@
 {% extends 'customer/customer_dashboard.html' %}
 {% block content %}
-
-      {%if messages%}
-{% for message in messages%}
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-     {{messages}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{%endfor%}
-{%endif%}
-
 <div class="card">
     <div class="card-body">
         <table class="table table-bordered">
@@ -27,12 +17,12 @@
             <tbody>
                 {% for i in data %}
                 <tr>
-                    <td>{{ i.Customuser.username}}</td>
+                    <td>{{ i.Customuser.first_name}} {{i.Customuser.last_name}}</td>
                     <td>{{i.type_of_work.works}}</td>
                     <td>{{ i.date_available }}</td>
                     <td>{{ i.start_time }}</td>
                     <td>{{ i.end_time }}</td>
-                    <td><button ><a href="{% url 'take_appointment' i.id %}">book appointment</a></button></td>
+                    <td><button><a href="{% url 'take_appointment' i.id %}">book appointment</a></button></td>
 
                 </tr>
                 {% endfor %}

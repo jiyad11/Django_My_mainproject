@@ -234,7 +234,6 @@ def schedule_work(request):
         return redirect('view_customerschedule')
 
 
-
 def view_schedulework(request):
     user = request.user
     data = schedule.objects.filter(Customuser=user)
@@ -249,6 +248,10 @@ def view_adminschedule(request):
     data = schedule.objects.all()
     return render(request,'admin/view_adminschedule.html',{'data' : data})
 
+
+
+########## seperate section to view workers schedules to take appointments #########
+@login_required(login_url='login_user')
 def painter_schedule(request):
     data = schedule.objects.filter(type_of_work__works='painting')
     return render(request,'view_painter_schedule.html',{'data':data})
@@ -258,6 +261,33 @@ def painter_schedule(request):
 def carpenter_schedule(request):
     data = schedule.objects.filter(type_of_work__works='carpentry')
     return render(request,'view_carpenter_schedule.html',{'data' : data})
+
+
+@login_required(login_url='login_user')
+def welder_schedule(request):
+    data = schedule.objects.filter(type_of_work__works='welding')
+    return render(request,'view_welder_schedule.html',{'data' : data})
+
+@login_required(login_url='login_user')
+def electrician_schedule(request):
+    data = schedule.objects.filter(type_of_work__works='electrical')
+    return render(request,'view_electrician_schedule.html',{'data' : data})
+
+
+
+@login_required(login_url='login_user')
+def plumber_schedule(request):
+    data = schedule.objects.filter(type_of_work__works='plumbing')
+    return render(request,'view_plumber_schedule.html',{'data' : data})
+
+@login_required(login_url='login_user')
+def tilesWorker_schedule(request):
+    data = schedule.objects.filter(type_of_work__works='tiles and floorwork')
+    return render(request,'view_tilesWorker_schedule.html',{'data' : data})
+
+
+
+######################################################################
 
 
 
@@ -424,6 +454,14 @@ def bill_history(request):
     bill = Bill.objects.filter(Customuser=u,status__in=[0,1,2])
     return render(request,'view_bill_history.html',{'bills' : bill})
 
+
+@login_required(login_url='login_user')
+@user_passes_test(is_admin)
+def bill_history_admin(request):
+    u = customuser.objects.all()
+    bill = Bill.objects.filter(status__in=[0,1,2])
+    return render(request,'view_bill_history_admin.html',{'bills' : bill, 'u':u})
+
 def get_invoice(request,id):
     data = customuser.objects.get(username=request.user)
     bill = Bill.objects.get(id=id)
@@ -496,7 +534,5 @@ def contact_us(request):
 def view_available_schedulePage(request):
     return render(request,'view_available_schedulePage.html')
 
-
-
-
-
+# def testimonials(request):
+#     return render(request,'testimonials.html')
