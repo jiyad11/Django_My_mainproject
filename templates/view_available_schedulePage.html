@@ -6,6 +6,18 @@
     <meta charset="UTF-8">
     <title>Available Schedules</title>
 
+    <style>
+        .read-more{
+            color: orange;
+        }
+        .work-heading{
+            font-weight: bolder;
+            color: black;
+        }
+
+
+    </style>
+
     <!-- Favicon -->
     <link href=" {% static 'assets_2/img/favicon.ico' %} " rel="icon" />
 
@@ -32,7 +44,7 @@
     <link href=" {% static 'assets_2/lib/owlcarousel/assets/owl.carousel.min.css' %} " rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href=" {% static 'assets_2/css/bootstrap.min.css' %} " rel="stylesheet" />
+<!--    <link href=" {% static 'assets_2/css/bootstrap.min.css' %} " rel="stylesheet" />-->
 
     <!-- Template Stylesheet -->
     <link href=" {% static 'assets_2/css/style.css' %} " rel="stylesheet" />
@@ -41,97 +53,98 @@
 <div class="row g-4 justify-content-center">
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="service-item bg-light overflow-hidden h-100">
-              <img class="img-fluid" src=" {% static 'assets_2/img/service-1.jpg' %} " alt="" />
+              <img class="img-fluid" src=" {% static 'assets_2/img/carpentry.jpg' %} "  alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Building Construction</h5>
+                <h5 class="mb-3 work-heading">Carpentry</h5>
                 <p>
-                  Tempor erat elitr rebum at clita dolor diam ipsum sit diam
-                  amet diam et eos
+                    View Carpenter's Availability: Discover our carpenter's open slots and select a time that suits you. Your chosen time will be reviewed and confirmed by our team.
                 </p>
-                <a class="small" href=" {% static 'assets_2' %} "
-                  >READ MORE<i class="fa fa-arrow-right ms-3"></i
+                <a class="small read-more" href=" {% url 'carpenter_schedule' %} "
+                  >CLICK HERE<i class="fa fa-arrow-right ms-3"></i
                 ></a>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-            <div class="service-item bg-light overflow-hidden h-100">
-              <img class="img-fluid" src=" {% static 'assets_2/img/service-2.jpg' %} " alt="" />
-              <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Home Maintainance</h5>
-                <p>
-                  Tempor erat elitr rebum at clita dolor diam ipsum sit diam
-                  amet diam et eos
-                </p>
-                <a class="small" href=" {% static 'assets_2' %} "
-                  >READ MORE<i class="fa fa-arrow-right ms-3"></i
-                ></a>
-              </div>
-            </div>
-          </div>
+
+
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
             <div class="service-item bg-light overflow-hidden h-100">
-              <img class="img-fluid" src=" {% static 'assets_2/img/service-3.jpg' %} " alt="" />
+              <img class="img-fluid" src=" {% static 'assets_2/img/service-5.jpg' %} " alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Renovation and Painting</h5>
+                <h5 class="mb-3 work-heading">Painting</h5>
                 <p>
-                  Tempor erat elitr rebum at clita dolor diam ipsum sit diam
-                  amet diam et eos
+                  View Painter's Availability: Discover our painter's open slots and select a time that suits you. Your chosen time will be reviewed and confirmed by our team.
                 </p>
-                <a class="small" href=" {% static 'assets_2' %} "
-                  >READ MORE<i class="fa fa-arrow-right ms-3"></i
+                <a class="small read-more" href=" {% url 'painter_schedule' %} "
+                  >CLICK HERE<i class="fa fa-arrow-right ms-3"></i
                 ></a>
               </div>
             </div>
           </div>
+
+
+          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="service-item bg-light overflow-hidden h-100">
+              <img class="img-fluid" src=" {% static 'assets_2/img/welding.jpg' %} " alt="" />
+              <div class="service-text position-relative text-center h-100 p-4">
+                <h5 class="mb-3 work-heading">Welding</h5>
+                <p>
+                 View Welder's Availability: Discover our welder's open slots and select a time that suits you. Your chosen time will be reviewed and confirmed by our team.
+                </p>
+                <a class="small read-more" href=" {% url 'welder_schedule' %} "
+                  >CLICK HERE<i class="fa fa-arrow-right ms-3"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="service-item bg-light overflow-hidden h-100">
               <img class="img-fluid" src=" {% static 'assets_2/img/service-4.jpg' %} " alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Wiring and installation</h5>
+                <h5 class="mb-3 work-heading">Wiring and installation</h5>
                 <p>
-                  Tempor erat elitr rebum at clita dolor diam ipsum sit diam
-                  amet diam et eos
+                  View Electrician's Availability: Discover our Electrician's open slots and select a time that suits you. Your chosen time will be reviewed and confirmed by our team.
                 </p>
-                <a class="small" href="view_works"
-                  >READ MORE<i class="fa fa-arrow-right ms-3"></i
+                <a class="small read-more" href="{% url 'electrician_schedule' %}"
+                  >CLICK HERE<i class="fa fa-arrow-right ms-3"></i
                 ></a>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
             <div class="service-item bg-light overflow-hidden h-100">
-              <img class="img-fluid" src=" {% static 'assets_2/img/service-5.jpg' %} " alt="" />
+              <img class="img-fluid" src=" {% static 'assets_2/img/tiles.jpg' %} " alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Tiling and Painting</h5>
+                <h5 class="mb-3 work-heading">Tiles & Flooring</h5>
                 <p>
 
-                  Tempor erat elitr rebum at clita dolor diam ipsum sit diam
-                  amet diam et eos
+                   View Worker's Availability: Discover our Worker's open slots and select a time that suits you. Your chosen time will be reviewed and confirmed by our team.
+
                 </p>
-                <a class="small" href="{% url 'painter_schedule' %}"
-                  >READ MORE<i class="fa fa-arrow-right ms-3"></i
+                <a class="small read-more" href="{% url 'tilesWorker_schedule' %}"
+                  >CLICK HERE<i class="fa fa-arrow-right ms-3"></i
                 ></a>
               </div>
             </div>
           </div>
+
           <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
             <div class="service-item bg-light overflow-hidden h-100">
-              <img class="img-fluid" src=" {% static 'assets_2/img/service-6.jpg' %} " alt="" />
+              <img class="img-fluid" src=" {% static 'assets_2/img/plumbing.jpg' %} " alt="" />
               <div class="service-text position-relative text-center h-100 p-4">
-                <h5 class="mb-3">Interior Design</h5>
-                <h1 rel="stylesheet" href=" {% static 'assets_2/css/mystyle.css' %} "  class="my_name"> hi </h1>
+                <h5 class="mb-3 work-heading">Plumbing</h5>
+<!--                <h1 rel="stylesheet" href=" {% static 'assets_2/css/mystyle.css' %} "  class="my_name"> hi </h1>-->
                 <p>
-                  Tempor erat elitr rebum at clita dolor diam ipsum sit diam
-                  amet diam et eos
+                   View Plumber's Availability: Discover our Plumber's open slots and select a time that suits you. Your chosen time will be reviewed and confirmed by our team.
                 </p>
-                <a class="small" href=" {% static 'assets_2' %} "
-                  >READ MORE<i class="fa fa-arrow-right ms-3"></i
+                <a class="small read-more" href=" {% url 'plumber_schedule' %} "
+                  >CLICK HERE<i class="fa fa-arrow-right ms-3"></i
                 ></a>
               </div>
             </div>
           </div>
-        </div>
+
 </body>
 </html>
 {% endblock %}

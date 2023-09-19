@@ -4,14 +4,14 @@
 <div class="card">
     <div class="card-body">
 <table class="table table-bordered">
-{% for a in appointment %}
+{% for appo in appointment %}
 <tr>
   <td>{{forloop.counter}}</td>
-  <td>{{a.Customuser.username}}</td>
-  <td>{{a.Schedule.date_available}}</td>
-  <td>{{a.Schedule.start_time}}</td>
-  <td>{{a.Schedule.end_time}}</td>
-  {% if a.status == 0 %}
+  <td>{{appo.Customuser.username}}</td>
+  <td>{{appo.Schedule.date_available}}</td>
+  <td>{{appo.Schedule.start_time}}</td>
+  <td>{{appo.Schedule.end_time}}</td>
+  {% if appo.status == 0 %}
   <td>
     <form method="post" action="{% url 'approve_appointment' a.id %}">
       {% csrf_token %}
@@ -24,11 +24,11 @@
       <button class="btn btn-danger" type="submit" value="reject" onclick="return confirm('are you sure, you want to reject this appointment?')">Reject</button>
     </form>
   </td>
-  {% elif a.status == 1 %}
+  {% elif appo.status == 1 %}
   <td>
     <button class="btn btn-outline-success" type="submit" disabled>approved</button>
   </td>
-  {% elif a.status == 2 %}
+  {% elif appo.status == 2 %}
   <td>
     <button class="btn btn-outline-danger" type="submit" disabled>rejected</button>
   </td>

@@ -11,6 +11,7 @@ from myapp.forms import work_form, WorkerForm, customer_form, schedule_form, bil
 from myapp.models import work_types, schedule, customuser, Bill, card, appointment, complaints
 from myapp.utils import render_to_pdf
 from django.http import HttpResponse
+from django.db.models import Q
 
 
 #we redirecting using views function name, not htmlname
@@ -254,36 +255,41 @@ def view_adminschedule(request):
 @login_required(login_url='login_user')
 def painter_schedule(request):
     data = schedule.objects.filter(type_of_work__works='painting')
-    return render(request,'view_painter_schedule.html',{'data':data})
+    return render(request,'customer/view_customerschedule.html',{'data':data})
 
 
 @login_required(login_url='login_user')
 def carpenter_schedule(request):
     data = schedule.objects.filter(type_of_work__works='carpentry')
-    return render(request,'view_carpenter_schedule.html',{'data' : data})
-
+    if data.exists():
+        return render(request,'customer/view_customerschedule.html',{'data' : data})
+    else:
+        HttpResponse('<h1>sorry no schedules available right now<h1>')
 
 @login_required(login_url='login_user')
 def welder_schedule(request):
     data = schedule.objects.filter(type_of_work__works='welding')
-    return render(request,'view_welder_schedule.html',{'data' : data})
+    return render(request,'customer/view_customerschedule.html',{'data' : data})
 
 @login_required(login_url='login_user')
 def electrician_schedule(request):
     data = schedule.objects.filter(type_of_work__works='electrical')
-    return render(request,'view_electrician_schedule.html',{'data' : data})
+    return render(request,'customer/view_customerschedule.html',{'data' : data})
 
 
 
 @login_required(login_url='login_user')
 def plumber_schedule(request):
     data = schedule.objects.filter(type_of_work__works='plumbing')
-    return render(request,'view_plumber_schedule.html',{'data' : data})
+    return render(request,'customer/view_customerschedule.html',{'data' : data})
 
 @login_required(login_url='login_user')
 def tilesWorker_schedule(request):
     data = schedule.objects.filter(type_of_work__works='tiles and floorwork')
-    return render(request,'view_tilesWorker_schedule.html',{'data' : data})
+    if data.exists():
+        return render(request, 'customer/view_customerschedule.html', {'data': data})
+    else:
+        return render(request, 'no_schedules.html')
 
 
 
@@ -365,6 +371,17 @@ def view_worker_appointment(request):
 
 
 
+
+
+def view_approved_appointments(request):
+    c = customuser.objects.get(username=request.user)
+
+    # Filter appointments to only include those with status=1 (approved)
+    a = appointment.objects.filter(Q(Schedule__Customuser=c) & Q(status=1))
+
+    return render(request, 'worker/view_worker_appointment.html', {'appointment': a})
+
+
 def approve_appointment(request,id):
     a = appointment.objects.get(id=id)
     a.status = 1
@@ -378,6 +395,8 @@ def reject_appointment(request,id):
     a.save()
     messages.info(request,'appointment rejected')
     return redirect('view_worker_appointment')
+
+
 
 
 def login_user(request):
@@ -419,8 +438,6 @@ def view_payment(request):
     data = Bill.objects.all()
     return render(request,'admin/view_payment.html',{'data' : data})
 
-
-# @login_required -this is a decorator for security but now i commented this
 
 @login_required(login_url='login_user')
 def view_userpayment(request):
@@ -534,5 +551,4 @@ def contact_us(request):
 def view_available_schedulePage(request):
     return render(request,'view_available_schedulePage.html')
 
-# def testimonials(request):
-#     return render(request,'testimonials.html')
+

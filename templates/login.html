@@ -5,9 +5,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
-  <link rel="shortcut icon" type="image/png" href=" {% static 'log_assets/images/logos/favicon.png' %} " />
+  <title>E-Home service Login/register</title>
+<!--  <link rel="shortcut icon" type="image/png" href=" {% static 'log_assets/images/logos/favicon.png' %} " />-->
   <link rel="stylesheet" href=" {% static 'log_assets/css/styles.min.css' %} " />
+
+     <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
   <style>
   .btn-xs {
   padding: 0.15rem 0.5rem;
@@ -25,12 +31,12 @@
       <div class="d-flex align-items-center justify-content-center w-100">
         <div class="row justify-content-center w-100">
           <div class="col-md-8 col-lg-6 col-xxl-3">
-            <div class="card mb-0">
+            <div class="card mb-0" >
               <div class="card-body">
 <!--                <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">-->
 <!--                  <img src=" {% static 'log_assets/images/logos/dark-logo.svg' %}" width="180" alt="">-->
 <!--                </a>-->
-                  <h2 class="text-center" ><a href="{% url 'index' %}" style="color:orange">E-Home service</a></h2>
+                  <h2 class="text-center" ><a href="{% url 'index' %}" style="color:orange"> <i class="fa fa-home me-3" style="color: orange;"></i>E-Home services</a></h2>
                 <h3>login here</h3>
 <!--                <p class="text-center">Your Social Campaigns</p>-->
                 <form method="post">
@@ -52,12 +58,12 @@
 <!--                    </div>-->
 <!--                    <a class="text-primary fw-bold" href="./index.html">Forgot Password ?</a>-->
 <!--                  </div>-->
-                  <button class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
+                  <button class="btn btn-warning w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                   <h4 class="text-center">or</h4>
                   <div class="d-flex align-items-center justify-content-center">
                     <p class="fs-5 mb-0 fw-bold">Create new Account:</p>
-                    <button class="btn btn-muted btn-xs me-2"><a style="color:white;" href="{% url 'add_customer' %}">Create customer account</a></button>
-                    <button class="btn btn-muted btn-xs ms-2"><a style="color:white;" href="{% url 'add_worker' %}">Create worker account</a></button>
+                    <button class="btn btn-primary btn-xs me-2" ><a style="color:white;" href="{% url 'add_customer' %}">New Customer account</a></button>
+                    <button class="btn btn-primary btn-xs ms-2"><a style="color:white;" href="{% url 'add_worker' %}">New Worker account</a></button>
 
                   </div>
                 </form>

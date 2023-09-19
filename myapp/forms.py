@@ -118,7 +118,7 @@ class complaint_form(forms.ModelForm):
 class reply_complaintform(forms.ModelForm):
     class Meta:
         model = complaints  # Specify the model you want to use for the form
-        fields = ['reply_complaint', 'reply_date']  # List the fields you want in the form
+        fields = ('reply_complaint', 'reply_date')  # List the fields you want in the form
 
     def clean_reply_complaint(self):
         reply_complaint = self.cleaned_data['reply_complaint']

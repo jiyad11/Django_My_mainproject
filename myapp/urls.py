@@ -91,6 +91,7 @@ urlpatterns = [
     # path('search_results',views.search_results,name='search_results'),
 
     path('bill_history_admin',views.bill_history_admin,name='bill_history_admin'),
+    path('view_approved_appointments',views.view_approved_appointments,name='view_approved_appointments'),
 
 ]
 
